@@ -78,7 +78,12 @@ export default function KurumsalYonetim() {
   const [selectedMember, setSelectedMember] = useState(null);
   const teamMembers = useSupabaseRows(
     'team_members',
-    { orderBy: 'order_index', ascending: true, filters: [{ column: 'active', value: true }] },
+    {
+      orderBy: 'order_index',
+      ascending: true,
+      filters: [{ column: 'active', value: true }],
+      allowEmpty: true,
+    },
     [],
     mapTeamMember,
   );

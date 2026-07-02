@@ -89,9 +89,10 @@ async function fetchRows(table, {
   return rows;
 }
 
-export function useSupabaseRows(table, options, fallbackRows = [], mapper = (row) => row) {
+export function useSupabaseRows(table, options = {}, fallbackRows = [], mapper = (row) => row) {
+  const { allowEmpty = false, ...queryOptions } = options;
   const fallback = useMemo(() => fallbackRows.map(mapper), [fallbackRows, mapper]);
-  const optionsKey = JSON.stringify(options || {});
+  const optionsKey = JSON.stringify(queryOptions || {});
   const stableOptions = useMemo(() => JSON.parse(optionsKey), [optionsKey]);
   const [rows, setRows] = useState(fallback);
 
@@ -107,7 +108,9 @@ export function useSupabaseRows(table, options, fallbackRows = [], mapper = (row
 
     fetchRows(table, stableOptions)
       .then((data) => {
-        if (mounted) setRows((data || []).map(mapper));
+        if (!mounted) return;
+        const mapped = (data || []).map(mapper);
+        setRows(mapped.length > 0 || allowEmpty ? mapped : fallback);
       })
       .catch(() => {
         if (mounted) setRows(fallback);
@@ -116,7 +119,7 @@ export function useSupabaseRows(table, options, fallbackRows = [], mapper = (row
     return () => {
       mounted = false;
     };
-  }, [fallback, mapper, stableOptions, table]);
+  }, [allowEmpty, fallback, mapper, stableOptions, table]);
 
   return rows;
 }

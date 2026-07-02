@@ -36,7 +36,8 @@ export default function LandingPage() {
     HERO_SLIDES,
     mapHeroSlide,
   );
-  const slideCount = slides.length || 1;
+  const displaySlides = slides.length ? slides : HERO_SLIDES;
+  const slideCount = displaySlides.length || 1;
 
   useEffect(() => {
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -81,10 +82,10 @@ export default function LandingPage() {
   }, []);
   const openMenu = useCallback(() => setMenuOpen(true), []);
   const closeMenu = useCallback(() => setMenuOpen(false), []);
-  const slide = slides[active] || slides[0];
+  const slide = displaySlides[active] || displaySlides[0];
   const lcpImage = useMemo(
-    () => optimizeImageUrl(slides[0]?.image, { width: 1600, quality: 75 }),
-    [slides],
+    () => optimizeImageUrl(displaySlides[0]?.image, { width: 1600, quality: 75 }),
+    [displaySlides],
   );
   const num = String(active + 1).padStart(2, '0');
   const total = String(slideCount).padStart(2, '0');
@@ -117,7 +118,7 @@ export default function LandingPage() {
 
         {/* Vertical pagination — desktop */}
         <div className="absolute left-6 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-5 z-20">
-          {slides.map((s, i) => (
+          {displaySlides.map((s, i) => (
             <button
               key={`dot-${s.tag}`}
               onClick={() => goToSlide(i)}
@@ -143,7 +144,7 @@ export default function LandingPage() {
 
         {/* Mobile horizontal pagination */}
         <div className="md:hidden absolute top-4 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
-          {slides.map((s, i) => (
+          {displaySlides.map((s, i) => (
             <button key={`mdot-${s.tag}`} onClick={() => goToSlide(i)} aria-label={`slide-${i + 1}`}
               className={`relative h-[2px] overflow-hidden transition-all duration-500 ${i === active ? 'w-8 bg-stone-300' : 'w-4 bg-stone-300'}`}>
               {i === active && (

@@ -73,6 +73,7 @@
     "start:admin-api": "node server/admin-api.js",
     "build": "node scripts/generate-sitemap.js && craco build",
     "sync:cms": "node scripts/sync-cms-to-supabase.cjs",
+    "migrate:taahhut-images": "node scripts/migrate-taahhut-images.cjs",
     "test": "craco test"
   },
   "browserslist": {

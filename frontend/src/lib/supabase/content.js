@@ -263,6 +263,7 @@ export function useBlogPost(slug, fallbackRows = []) {
 export function mapTaahhutProject(row, index = 0) {
   const gallery = Array.isArray(row.images) ? row.images.filter(Boolean) : [];
   const cover = row.cover_image || gallery[0] || DEFAULT_PROJECT_IMAGE;
+  const resolvedGallery = gallery.length ? gallery : [cover];
 
   return {
     id: row.id || index + 1,
@@ -277,8 +278,8 @@ export function mapTaahhutProject(row, index = 0) {
     sqm: Number(row.sqm || 0),
     sqmLabel: row.sqm_label || row.sqmLabel || (row.sqm ? `${Number(row.sqm).toLocaleString('tr-TR')} M²` : ''),
     location: row.location || '',
-    image: cover,
-    images: gallery.length ? gallery : [cover],
+    image: optimizeImageUrl(cover, { width: 1600, quality: 75 }),
+    images: resolvedGallery.map((src) => optimizeImageUrl(src, { width: 1400, quality: 75 })),
   };
 }
 

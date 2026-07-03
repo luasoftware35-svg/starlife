@@ -5,6 +5,7 @@ import SocialLinks from './SocialLinks';
 import BrandLogo from './BrandLogo';
 import { useCompany } from '../../lib/siteSettings';
 import { policyPaths } from '../../lib/policyPaths';
+import AgencyCredit from './AgencyCredit';
 
 export default function SubsiteFooter({ brandPrefix, brandSuffix, basePath = '/', accentClass = 'text-pomegranate', description }) {
   const company = useCompany();
@@ -56,6 +57,7 @@ export default function SubsiteFooter({ brandPrefix, brandSuffix, basePath = '/'
           <Link to={legalPaths.cookies} className="text-white/35 text-[11px] tracking-[0.1em] font-light hover:text-gold transition-colors">Çerez Politikası</Link>
         </div>
       </div>
+      <AgencyCredit />
     </footer>
   );
 }

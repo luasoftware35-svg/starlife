@@ -5,6 +5,7 @@ import { ArrowLeft, Building2, Calendar, MapPin, Ruler, X } from 'lucide-react';
 import SubsiteHeader from '../../components/shared/SubsiteHeader';
 import SubsiteFooter from '../../components/shared/SubsiteFooter';
 import PageHero from '../../components/shared/PageHero';
+import SafeImage from '../../components/shared/SafeImage';
 import Seo from '../../components/seo/Seo';
 import { STARLIFE_NAV } from '../../mock/mock';
 import { TAAHHUT_PROJECTS } from '../../mock/taahhutProjects';
@@ -218,7 +219,7 @@ export default function StarlifeTaahhutDetail() {
                   onClick={() => setLightboxIndex(index)}
                   className="group aspect-[4/3] overflow-hidden bg-ink text-left"
                 >
-                  <img
+                  <SafeImage
                     src={image}
                     alt={`${project.title} ${index + 1}`}
                     className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
@@ -242,7 +243,7 @@ export default function StarlifeTaahhutDetail() {
                   className="group overflow-hidden border border-ink/10"
                 >
                   <div className="aspect-[4/3] overflow-hidden">
-                    <img
+                    <SafeImage
                       src={item.image}
                       alt={item.title}
                       className="h-full w-full object-cover transition duration-500 group-hover:scale-105"

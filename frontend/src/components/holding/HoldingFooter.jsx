@@ -5,6 +5,7 @@ import SocialLinks from '../shared/SocialLinks';
 import BrandLogo from '../shared/BrandLogo';
 import { useCompany } from '../../lib/siteSettings';
 import { policyPaths } from '../../lib/policyPaths';
+import AgencyCredit from '../shared/AgencyCredit';
 
 const legalPaths = policyPaths('');
 const currentYear = new Date().getFullYear();
@@ -62,6 +63,7 @@ export default function HoldingFooter() {
           <Link to={legalPaths.cookies} className="text-white/35 text-[11px] tracking-[0.1em] font-light hover:text-gold transition-colors">Çerez Politikası</Link>
         </div>
       </div>
+      <AgencyCredit />
     </footer>
   );
 }

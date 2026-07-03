@@ -56,14 +56,19 @@ export default function HoldingFooter() {
         </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto mt-16 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3">
-        <p className="text-white/35 text-[11px] tracking-[0.1em] font-light">Tüm Hakları Saklıdır © {currentYear} Starlife İnşaat</p>
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
-          <Link to={legalPaths.kvkk} className="text-white/35 text-[11px] tracking-[0.1em] font-light hover:text-gold transition-colors">KVKK Metni</Link>
-          <Link to={legalPaths.cookies} className="text-white/35 text-[11px] tracking-[0.1em] font-light hover:text-gold transition-colors">Çerez Politikası</Link>
+      <div className="max-w-[1400px] mx-auto mt-16 pt-6 border-t border-white/10 flex flex-col items-center gap-4 md:flex-row md:justify-between md:gap-6">
+        <p className="text-white/35 text-[11px] tracking-[0.1em] font-light text-center md:text-left">
+          Tüm Hakları Saklıdır © {currentYear} Starlife İnşaat
+        </p>
+        <div className="flex flex-col items-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center md:justify-end">
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+            <Link to={legalPaths.kvkk} className="text-white/35 text-[11px] tracking-[0.1em] font-light hover:text-gold transition-colors">KVKK Metni</Link>
+            <Link to={legalPaths.cookies} className="text-white/35 text-[11px] tracking-[0.1em] font-light hover:text-gold transition-colors">Çerez Politikası</Link>
+          </div>
+          <span className="hidden sm:block h-3 w-px bg-white/15" aria-hidden />
+          <AgencyCredit />
         </div>
       </div>
-      <AgencyCredit />
     </footer>
   );
 }

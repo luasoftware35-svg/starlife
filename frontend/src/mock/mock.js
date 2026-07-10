@@ -25,7 +25,7 @@ export const HERO_SLIDES = [
     desc: "2009'dan bu yana güvenli, modern ve kaliteli yaşam alanları inşa ediyoruz.",
     cta: 'Keşfet',
     href: '/starlife-insaat',
-    image: 'https://images.unsplash.com/photo-1626885930974-4b69aa21bbf9',
+    image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg',
   },
   {
     tag: 'Konut Projeleri',

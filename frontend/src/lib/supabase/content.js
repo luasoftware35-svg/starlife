@@ -148,7 +148,7 @@ export function mapProject(row) {
 }
 
 export function mapHeroSlide(row) {
-  const image = row.image || row.image_url || 'https://images.unsplash.com/photo-1626885930974-4b69aa21bbf9';
+  const image = row.image || row.image_url || 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg';
 
   return {
     tag: row.tag || 'Starlife İnşaat',

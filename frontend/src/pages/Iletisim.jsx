@@ -1,10 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MapPin, Mail, Phone } from 'lucide-react';
+import { MapPin, Mail } from 'lucide-react';
 import HoldingHeader from '../components/holding/HoldingHeader';
 import HoldingFooter from '../components/holding/HoldingFooter';
 import PageHero from '../components/shared/PageHero';
 import ContactForm from '../components/shared/ContactForm';
+import ContactPhones from '../components/shared/ContactPhones';
 import MapEmbed from '../components/shared/MapEmbed';
 import { useCompany } from '../lib/siteSettings';
 import { fadeUp } from '../lib/animations';
@@ -37,7 +38,6 @@ export default function Iletisim() {
               {[
                 { icon: MapPin, label: 'ADRES', value: company.address },
                 { icon: Mail, label: 'MAİL', value: company.email, href: `mailto:${company.email}` },
-                { icon: Phone, label: 'TEL', value: company.phone, href: `tel:${company.phone.replace(/\s/g, '')}` },
               ].map((i) => (
                 <div key={i.label} className="flex gap-4 sm:gap-5 items-start">
                   <div className="w-12 h-12 bg-pomegranate/10 flex items-center justify-center text-pomegranate shrink-0">
@@ -53,6 +53,7 @@ export default function Iletisim() {
                   </div>
                 </div>
               ))}
+              <ContactPhones company={company} layout="contact" linkClassName="" />
             </div>
 
             <div className="mt-10 overflow-hidden">

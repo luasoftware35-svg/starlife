@@ -4,7 +4,8 @@ import { listRows, upsertRow } from '@/lib/supabase/admin';
 
 const CONTACT_FIELDS = [
   { key: 'contact.email', label: 'E-posta', group: 'contact' },
-  { key: 'contact.phone', label: 'Telefon', group: 'contact' },
+  { key: 'contact.phone', label: 'Sabit Hat', group: 'contact' },
+  { key: 'contact.phone_projects', label: 'Özel Projeler Telefonu', group: 'contact' },
   { key: 'contact.address', label: 'Adres', group: 'contact' },
   { key: 'company.name', label: 'Şirket Adı', group: 'general' },
   { key: 'company.slogan', label: 'Slogan', group: 'general' },

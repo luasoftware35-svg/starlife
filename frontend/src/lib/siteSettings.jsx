@@ -20,6 +20,7 @@ const SOCIAL_KEY_MAP = {
 const SETTING_MAP = {
   'contact.email': 'email',
   'contact.phone': 'phone',
+  'contact.phone_projects': 'phoneProjects',
   'contact.address': 'address',
   'company.name': 'name',
   'company.slogan': 'slogan',

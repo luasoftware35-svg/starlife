@@ -58,14 +58,24 @@ export const ORGANIZATION_SCHEMA = {
     addressRegion: 'Diyarbakır',
     addressCountry: 'TR',
   },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: COMPANY.phone,
-    email: COMPANY.email,
-    contactType: 'customer service',
-    areaServed: 'TR',
-    availableLanguage: ['Turkish'],
-  },
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: COMPANY.phone,
+      email: COMPANY.email,
+      contactType: 'customer service',
+      areaServed: 'TR',
+      availableLanguage: ['Turkish'],
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: COMPANY.phoneProjects,
+      contactType: 'sales',
+      description: 'Özel projeler',
+      areaServed: 'TR',
+      availableLanguage: ['Turkish'],
+    },
+  ],
   sameAs: SOCIALS.map((social) => social.href),
   areaServed: {
     '@type': 'Country',

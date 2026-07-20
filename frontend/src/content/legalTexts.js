@@ -8,7 +8,8 @@ export function getKvkkSections(company = DEFAULT_COMPANY) {
         `6698 sayılı Kişisel Verilerin Korunması Kanunu ("KVKK") kapsamında veri sorumlusu sıfatıyla ${company.name} ("Şirket") kişisel verilerinizin güvenliğini sağlamayı, mevzuata uygun şekilde işlemeyi ve korunmasını sağlamayı taahhüt eder.`,
         `Veri Sorumlusu: ${company.name}`,
         `Adres: ${company.address}`,
-        `Telefon: ${company.phone}`,
+        `Telefon (Sabit Hat): ${company.phone}`,
+        `Telefon (Özel Projeler): ${company.phoneProjects}`,
         `E-posta: ${company.email}`,
       ],
     },
@@ -132,7 +133,7 @@ export function getCookiePolicySections(company = DEFAULT_COMPANY) {
       title: '5. Kişisel Veriler ve İletişim',
       paragraphs: [
         'Çerezler aracılığıyla elde edilen veriler KVKK kapsamında kişisel veri niteliğinde olabilir. Detaylı bilgi için KVKK Aydınlatma Metnimizi inceleyebilirsiniz.',
-        `Sorularınız için ${company.email} adresine veya ${company.phone} numarasına ulaşabilirsiniz.`,
+        `Sorularınız için ${company.email} adresine, ${company.phone} (sabit hat) veya ${company.phoneProjects} (özel projeler) numaralarına ulaşabilirsiniz.`,
       ],
     },
   ];

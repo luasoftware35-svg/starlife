@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { MapPin, Mail, Phone, ArrowUpRight } from 'lucide-react';
+import { MapPin, Mail, ArrowUpRight } from 'lucide-react';
+import ContactPhones from './ContactPhones';
 import SocialLinks from './SocialLinks';
 import BrandLogo from './BrandLogo';
 import { useCompany } from '../../lib/siteSettings';
@@ -45,7 +46,7 @@ export default function SubsiteFooter({ brandPrefix, brandSuffix, basePath = '/'
           <ul className="space-y-5">
             <li className="flex gap-3 text-white/60 text-sm font-light leading-relaxed"><MapPin size={15} strokeWidth={1.5} className="text-gold mt-0.5 shrink-0" /><span>{company.address}</span></li>
             <li className="flex gap-3 text-white/60 text-sm font-light"><Mail size={15} strokeWidth={1.5} className="text-gold mt-0.5 shrink-0" /><a href={`mailto:${company.email}`} className="break-all hover:text-gold transition-colors">{company.email}</a></li>
-            <li className="flex gap-3 text-white/60 text-sm font-light"><Phone size={15} strokeWidth={1.5} className="text-gold mt-0.5 shrink-0" /><a href={`tel:${company.phone.replace(/\s/g, '')}`} className="hover:text-gold transition-colors">{company.phone}</a></li>
+            <ContactPhones company={company} layout="footer" />
           </ul>
         </div>
       </div>

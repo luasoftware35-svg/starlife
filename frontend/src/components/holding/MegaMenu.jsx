@@ -2,9 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowUpRight, Phone, Mail, MapPin, ChevronRight } from 'lucide-react';
-import { HOLDING_NAV, COMPANY, SOCIALS } from '../../mock/mock';
+import { X, ArrowUpRight, Mail, MapPin, ChevronRight } from 'lucide-react';
+import { HOLDING_NAV, SOCIALS } from '../../mock/mock';
 import BrandLogo from '../shared/BrandLogo';
+import ContactPhones from '../shared/ContactPhones';
+import { useCompany } from '../../lib/siteSettings';
 
 const EASE = [0.76, 0, 0.24, 1];
 const EASE_OUT = [0.22, 1, 0.36, 1];
@@ -22,6 +24,7 @@ const DEFAULT_IMAGE = 'https://images.pexels.com/photos/33230969/pexels-photo-33
 const FOOTNOTES = ['ESTABLISHED 2009', 'DIYARBAKIR', 'TÜRKİYE', 'STARLIFE INŞAAT', 'GROUP', 'KAYAPINAR'];
 
 export default function MegaMenu({ open, onClose }) {
+  const company = useCompany();
   const [hoveredItem, setHoveredItem] = useState(null);
   const [expandedItem, setExpandedItem] = useState(null);
 
@@ -280,11 +283,14 @@ export default function MegaMenu({ open, onClose }) {
                 {/* Contact + Socials */}
                 <div className="px-5 md:px-12 py-5 flex flex-col md:flex-row gap-4 md:gap-8 md:items-center justify-between">
                   <div className="flex flex-col md:flex-row gap-3 md:gap-8 font-mono-ui text-white/45 text-[11px] tracking-[0.12em]">
-                    <a href={`tel:${COMPANY.phone.replace(/\s/g, '')}`} className="flex items-center gap-2.5 hover:text-pomegranate-light transition-colors">
-                      <Phone size={13} strokeWidth={1.5} /> {COMPANY.phone}
-                    </a>
-                    <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-2.5 break-all hover:text-pomegranate-light transition-colors">
-                      <Mail size={13} strokeWidth={1.5} /> {COMPANY.email}
+                    <ContactPhones
+                      company={company}
+                      layout="inline"
+                      className="flex flex-col md:flex-row gap-3 md:gap-8"
+                      linkClassName="flex items-center gap-2.5 hover:text-pomegranate-light transition-colors"
+                    />
+                    <a href={`mailto:${company.email}`} className="flex items-center gap-2.5 break-all hover:text-pomegranate-light transition-colors">
+                      <Mail size={13} strokeWidth={1.5} /> {company.email}
                     </a>
                     <span className="hidden lg:flex items-center gap-2.5 text-white/30">
                       <MapPin size={13} strokeWidth={1.5} /> Diyarbakır / Türkiye

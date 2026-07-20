@@ -84,7 +84,7 @@ export default function NotFound() {
           </button>
         </div>
         <p className="text-ink/45 text-xs mt-8">
-          Yardım için {COMPANY.email} · {COMPANY.phone}
+          Yardım için {COMPANY.email} · {COMPANY.phone} · {COMPANY.phoneProjects}
         </p>
       </div>
     </section>

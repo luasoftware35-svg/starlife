@@ -7,6 +7,7 @@ export const COMPANY = {
   founder: 'Numan Erdoğan',
   address: 'Ceysa Serhat Plaza B Blok Kat 2 No:2 Kayapınar/Diyarbakır',
   phone: '0412 504 10 08',
+  phoneProjects: '0551 260 99 83',
   email: 'iletisim@starlifeinsaat.com',
 };
 

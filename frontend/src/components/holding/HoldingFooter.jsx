@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Mail, ArrowUpRight } from 'lucide-react';
 import ContactPhones from '../shared/ContactPhones';
+import SocialLinks from '../shared/SocialLinks';
 import BrandLogo from '../shared/BrandLogo';
 import { useCompany } from '../../lib/siteSettings';
 import { policyPaths } from '../../lib/policyPaths';

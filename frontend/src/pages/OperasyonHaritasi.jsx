@@ -191,7 +191,7 @@ function DetailPanel({ selected, onClose }) {
           <div className="grid grid-cols-3 border border-stone-800 mt-8">
             {[
               ['ÜNİTE', selected.project.units],
-              ['M²', selected.project.sqm.toLocaleString('tr-TR')],
+              ['M²', Number(selected.project.sqm || 0).toLocaleString('tr-TR')],
               ['YIL', selected.project.year],
             ].map(([label, value]) => (
               <div key={label} className="p-4 border-r border-stone-800 last:border-r-0">

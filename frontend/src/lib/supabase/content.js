@@ -297,11 +297,10 @@ export function useTaahhutProjects(fallbackRows = []) {
 }
 
 export function mapLocation(row) {
-  if (row.project) return row;
-
   const year = row.year || '';
   const units = Number(row.units || 0);
   const sqm = Number(row.sqm || 0);
+  const nestedProject = row.project && typeof row.project === 'object' ? row.project : null;
 
   return {
     id: row.id,
@@ -313,13 +312,18 @@ export function mapLocation(row) {
     cx: row.cx || '50%',
     cy: row.cy || '50%',
     project: {
-      name: row.title || row.city,
-      desc: row.description || '',
-      image: row.image || row.cover_image || mapFallbackImage(row.city),
-      units,
-      sqm,
-      year,
-      status: PROJECT_STATUS_LABELS[row.status]?.toUpperCase('tr-TR') || 'DEVAM EDİYOR',
+      name: nestedProject?.name || row.title || row.city,
+      desc: nestedProject?.desc || nestedProject?.description || row.description || '',
+      image: nestedProject?.image || row.image || row.cover_image || mapFallbackImage(row.city),
+      units: Number(nestedProject?.units ?? units),
+      sqm: Number(nestedProject?.sqm ?? sqm),
+      year: nestedProject?.year || year,
+      status: String(
+        nestedProject?.status
+          || PROJECT_STATUS_LABELS[row.status]
+          || row.status
+          || 'Devam Eden',
+      ).toLocaleUpperCase('tr-TR'),
     },
   };
 }

@@ -9,6 +9,9 @@ const STATIC_PATHS = [
   '/kurumsal/hakkimizda',
   '/kurumsal/yonetim',
   '/kurumsal/operasyon-haritasi',
+  '/kurumsal/referanslar-ve-sertifikalar',
+  '/kurumsal/kalite-ve-guvenlik',
+  '/kurumsal/yatirimci-iliskileri',
   '/blog',
   '/iletisim',
   '/politika/kvkk-metni',
@@ -32,12 +35,14 @@ const STATIC_PATHS = [
   '/starlife-insaat/yapiguvenligi/akilli-guvenlik-sistemleri',
   '/invest-insaat',
   '/invest-insaat/kurumsal/invest-insaat',
+  '/invest-insaat/projeler',
   '/invest-insaat/blog',
   '/invest-insaat/iletisim',
   '/invest-insaat/politika/kvkk-metni',
   '/invest-insaat/politika/cerez-politikasi',
   '/erd-insaat',
   '/erd-insaat/kurumsal/erd-insaat',
+  '/erd-insaat/projeler',
   '/erd-insaat/blog',
   '/erd-insaat/iletisim',
   '/erd-insaat/politika/kvkk-metni',
@@ -77,21 +82,82 @@ const TAAHHUT_SLUGS = [
 
 const BLOG_SLUGS = require('./blog-slugs.cjs');
 
-const urls = [
-  ...STATIC_PATHS.map((pathname) => ({ pathname, priority: pathname === '/' ? '1.0' : '0.8' })),
-  ...PROJECT_SLUGS.map((slug) => ({ pathname: `/starlife-insaat/projeler/${slug}`, priority: '0.7' })),
-  ...TAAHHUT_SLUGS.map((slug) => ({ pathname: `/starlife-insaat/taahhut/${slug}`, priority: '0.7' })),
-  ...BLOG_SLUGS.map((slug) => ({ pathname: `/blog/${slug}`, priority: '0.6' })),
-  ...BLOG_SLUGS.map((slug) => ({ pathname: `/starlife-insaat/blog/${slug}`, priority: '0.6' })),
+const HIGH_PRIORITY_PATTERNS = [
+  /^\/$/,
+  /^\/iletisim$/,
+  /^\/blog$/,
+  /^\/kurumsal\//,
+  /^\/starlife-insaat\/?$/,
+  /^\/invest-insaat\/?$/,
+  /^\/erd-insaat\/?$/,
+  /^\/starlife-insaat\/iletisim$/,
+  /^\/invest-insaat\/iletisim$/,
+  /^\/erd-insaat\/iletisim$/,
+  /^\/starlife-insaat\/(taahhutisleri|tumprojeler|insankaynaklari|kurumsal)/,
+  /^\/starlife-insaat\/taahhutisler\//,
+  /^\/starlife-insaat\/projeler\/(tamamlanan-projeler|devam-eden-projeler)$/,
+  /^\/invest-insaat\/(projeler|kurumsal)/,
+  /^\/erd-insaat\/(projeler|kurumsal)/,
+  /^\/starlife-insaat\/blog$/,
+  /^\/invest-insaat\/blog$/,
+  /^\/erd-insaat\/blog$/,
 ];
+
+function getUrlMeta(pathname) {
+  if (pathname === '/') {
+    return { priority: '1.0', changefreq: 'weekly' };
+  }
+
+  if (HIGH_PRIORITY_PATTERNS.some((pattern) => pattern.test(pathname))) {
+    return { priority: '0.8', changefreq: 'monthly' };
+  }
+
+  return { priority: '0.5', changefreq: 'monthly' };
+}
+
+function toLoc(pathname) {
+  return `${SITE_URL}${pathname === '/' ? '' : pathname}`;
+}
+
+const urls = [
+  ...STATIC_PATHS.map((pathname) => ({ pathname, ...getUrlMeta(pathname) })),
+  ...PROJECT_SLUGS.map((slug) => ({
+    pathname: `/starlife-insaat/projeler/${slug}`,
+    ...getUrlMeta(`/starlife-insaat/projeler/${slug}`),
+  })),
+  ...TAAHHUT_SLUGS.map((slug) => ({
+    pathname: `/starlife-insaat/taahhut/${slug}`,
+    ...getUrlMeta(`/starlife-insaat/taahhut/${slug}`),
+  })),
+  ...BLOG_SLUGS.map((slug) => ({
+    pathname: `/blog/${slug}`,
+    ...getUrlMeta(`/blog/${slug}`),
+  })),
+  ...BLOG_SLUGS.map((slug) => ({
+    pathname: `/starlife-insaat/blog/${slug}`,
+    ...getUrlMeta(`/starlife-insaat/blog/${slug}`),
+  })),
+  ...BLOG_SLUGS.map((slug) => ({
+    pathname: `/invest-insaat/blog/${slug}`,
+    ...getUrlMeta(`/invest-insaat/blog/${slug}`),
+  })),
+  ...BLOG_SLUGS.map((slug) => ({
+    pathname: `/erd-insaat/blog/${slug}`,
+    ...getUrlMeta(`/erd-insaat/blog/${slug}`),
+  })),
+];
+
+const uniqueUrls = Array.from(
+  new Map(urls.map((entry) => [entry.pathname, entry])).values(),
+);
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls
-  .map(({ pathname, priority }) => `  <url>
-    <loc>${SITE_URL}${pathname === '/' ? '' : pathname}</loc>
+${uniqueUrls
+  .map(({ pathname, priority, changefreq }) => `  <url>
+    <loc>${toLoc(pathname)}</loc>
     <lastmod>${TODAY}</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
   </url>`)
   .join('\n')}
@@ -100,4 +166,4 @@ ${urls
 
 const outputPath = path.join(__dirname, '../public/sitemap.xml');
 fs.writeFileSync(outputPath, xml);
-console.log(`Sitemap generated with ${urls.length} URLs at ${outputPath}`);
+console.log(`Sitemap generated with ${uniqueUrls.length} URLs at ${outputPath}`);

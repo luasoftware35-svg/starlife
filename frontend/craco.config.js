@@ -1,5 +1,7 @@
 // craco.config.js
 const path = require("path");
+const webpack = require("webpack");
+require("dotenv").config({ path: path.resolve(__dirname, ".env.local") });
 require("dotenv").config();
 
 // Environment variable overrides
@@ -51,6 +53,13 @@ let webpackConfig = {
       if (config.enableHealthCheck && healthPluginInstance) {
         webpackConfig.plugins.push(healthPluginInstance);
       }
+
+      webpackConfig.plugins.push(
+        new webpack.DefinePlugin({
+          "process.env.NEXT_PUBLIC_GA_ID": JSON.stringify(process.env.NEXT_PUBLIC_GA_ID || ""),
+        }),
+      );
+
       return webpackConfig;
     },
   },

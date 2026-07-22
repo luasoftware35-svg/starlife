@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import ScrollToTop from './components/ScrollToTop';
+import GoogleAnalytics from './components/analytics/GoogleAnalytics';
 import RouteSeo from './components/seo/RouteSeo';
 import CookieBanner from './components/shared/CookieBanner';
 import PageLoader from './components/shared/PageLoader';
@@ -125,6 +126,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <ScrollToTop />
+        <GoogleAnalytics />
         <RouteSeo />
         <CookieBanner />
         <Toaster
